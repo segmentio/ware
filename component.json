@@ -1,0 +1,18 @@
+{
+  "name": "ware",
+  "repo": "segmentio/ware",
+  "description": "Generic middleware to compose a series of functions",
+  "version": "0.0.1",
+  "keywords": [
+    "ware",
+    "middleware",
+    "compose"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "lib/ware.js",
+  "scripts": [
+    "lib/ware.js"
+  ]
+}
