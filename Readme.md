@@ -7,15 +7,14 @@
 
 ```javascript
 
-var Ware = require('ware');
+var ware = require('ware')();
 
-var middleware = new Ware()
-      .use(function (input, output, next) {
-        output.x = input.x * 2;
-        next();
-      });
+ware.use(function (input, output, next) {
+  output.x = input.x * 2;
+  next();
+});
 
-var composed = middleware.end();
+var composed = ware.end();
 
 composed({ x : 4 }, function (err, result) {
   console.log(result.x); // 8
