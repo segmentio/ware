@@ -17,8 +17,7 @@ describe('ware', function () {
       next();
     });
 
-    var composed = middleware.end();
-    composed({ x : 4 }, function (err, out) {
+    middleware.end({ x : 4 }, function (err, out) {
       out.x.should.eql(28);
       done();
     });
@@ -32,8 +31,7 @@ describe('ware', function () {
       .use(function (err, inp, out, next) { next(err); })
       .use(function (inp, out, next) { next(new Error()); });
 
-    var composed = middleware.end();
-    composed({ x : 4 }, function (err, out) {
+    middleware.end({ x : 4 }, function (err, out) {
       should.exist(err);
       err.should.be.instanceOf(Error);
       done();

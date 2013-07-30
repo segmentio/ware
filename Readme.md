@@ -14,9 +14,7 @@ ware.use(function (input, output, next) {
   next();
 });
 
-var composed = ware.end();
-
-composed({ x : 4 }, function (err, result) {
+ware.end({ x : 4 }, function (err, result) {
   console.log(result.x); // 8
 });
 ```
@@ -38,14 +36,12 @@ ware.use(function (input, output, next) {
 });
 ```
 
-#### .end()
+#### .end(input, fn)
 
-Returns a function which composes all the middleware.
+Runs the middleware functions.
 
 ```javascript
-var composed = ware.end();
-
-composed(input, function (err, result) { /*...*/ });
+ware.end(input, function (err, result) { /*...*/ });
 ```
 
 ## License
