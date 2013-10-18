@@ -1,6 +1,6 @@
-var should = require('should')
-  , ware   = require('..');
 
+var should = require('should');
+var ware = require('..');
 
 describe('ware', function () {
 

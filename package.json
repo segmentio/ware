@@ -1,18 +1,19 @@
 {
   "name": "ware",
+  "repository":"git://github.com/segmentio/ware.git",
   "version": "0.1.0",
-  "description": "Generic middleware to compose a series of functions",
+  "license": "MIT",
+  "description": "Easily create a middleware layer.",
   "keywords": [
-    "middleware",
     "compose",
-    "ware"
+    "connect",
+    "express",
+    "layer",
+    "middleware"
   ],
-  "author": "Segment.io <friends@segment.io>",
-  "repository": { "type": "git", "url": "git://github.com/segmentio/ware.git" },
-  "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
-  "main": "lib/ware"
+  "main": "lib/index.js"
 }

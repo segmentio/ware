@@ -1,12 +1,11 @@
 
 # ware
 
-  Generic middleware to compose a series of functions with shared input and output
+  Easily create a middleware layer.
 
 ## Quickstart
 
-```javascript
-
+```js
 var ware = require('ware')();
 
 ware.use(function (input, output, next) {
