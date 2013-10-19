@@ -7,7 +7,7 @@
   "keywords": [
     "compose",
     "connect",
-    "express"
+    "express",
     "layer",
     "middleware"
   ],
