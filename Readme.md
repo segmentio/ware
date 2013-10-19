@@ -1,4 +1,3 @@
-
 # ware
 
   Easily create your own middleware layer.
@@ -17,7 +16,7 @@ var middleware = ware()
     next();
   });
 
-middleware.run(req, res, function (err, req, res) {
+middleware.run({}, {}, function (err, req, res) {
   res.x; // "hello"
   res.y; // "world"
 });
@@ -68,7 +67,7 @@ middleware.run({ life: '42' }); // "yes!"
 
 #### .run(input..., [callback])
 
-  Runs the middleware functions with `input...` and optionally calls a `callback` with `(err, input...`.
+  Runs the middleware functions with `input...` and optionally calls `callback(err, input...)`.
 
 ## License
 
