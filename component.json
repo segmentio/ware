@@ -1,18 +1,16 @@
 {
   "name": "ware",
   "repo": "segmentio/ware",
-  "description": "Generic middleware to compose a series of functions",
-  "version": "0.0.1",
-  "keywords": [
-    "ware",
-    "middleware",
-    "compose"
-  ],
-  "dependencies": {},
-  "development": {},
+  "version": "0.2.0",
   "license": "MIT",
-  "main": "lib/ware.js",
-  "scripts": [
-    "lib/ware.js"
-  ]
+  "description": "Easily create your own middleware layer.",
+  "keywords": [
+    "compose",
+    "connect",
+    "express"
+    "layer",
+    "middleware"
+  ],
+  "scripts": ["lib/index.js"],
+  "main": "lib/index.js"
 }
