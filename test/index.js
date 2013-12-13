@@ -70,9 +70,19 @@ describe('ware', function () {
     it('should skip non-error handlers on error', function (done) {
       ware()
         .use(function (next) { next(new Error()); })
-        .use(function (next) { assert(false); next(); })
+        .use(function (next) { assert(false); })
         .run(function (err) {
           assert(err);
+          done();
+        });
+    });
+
+    it('should skip error handlers on no error', function (done) {
+      ware()
+        .use(function (next) { next(); })
+        .use(function (err, next) { assert(false); })
+        .run(function (err) {
+          assert(!err);
           done();
         });
     });

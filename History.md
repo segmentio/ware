@@ -1,3 +1,7 @@
+0.2.1 - December 12, 2013
+-------------------------
+* fix skipping error handlers without error
+
 0.2.0 - October 18, 2013
 ------------------------
 * rewrite:
