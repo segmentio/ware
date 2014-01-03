@@ -3,6 +3,9 @@
 
   Easily create your own middleware layer.
 
+  [![Build Status](https://travis-ci.org/segmentio/ware.png?branch=master)](https://travis-ci.org/segmentio/ware)
+
+
 ## Example
 
 ```js
