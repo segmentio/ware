@@ -1,9 +1,10 @@
 
-0.2.2 / 2014-03-18
+0.2.2 / March 18, 2013
 ==================
 
  * moving to settimeout to fix dom validation issues
  * add travis
+
 0.2.1 - December 12, 2013
 -------------------------
 * fix skipping error handlers without error

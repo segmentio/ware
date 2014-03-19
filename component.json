@@ -1,7 +1,7 @@
 {
   "name": "ware",
   "repo": "segmentio/ware",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "Easily create your own middleware layer.",
   "keywords": [
