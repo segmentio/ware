@@ -59,6 +59,22 @@ middleware.run({ life: '41' }); // "no!"
 middleware.run({ life: '42' }); // "yes!"
 ```
 
+  Pass new references, make sure to pass on all arguments aswell an error argument:
+
+```js
+var ware = require('ware');
+var middleware = ware()
+  .use(function (arr, next) {
+    next(null, arr.map(function (a) { return a * a; }));
+  })
+  .use(function (arr, next) {
+    console.log(arr);
+    next();
+  });
+
+middleware.run([ 1, 2, 3 ]); // 1, 4, 9
+```
+
 ## API
 
 #### ware()

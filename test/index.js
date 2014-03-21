@@ -100,6 +100,27 @@ describe('ware', function () {
         });
     });
 
+    it('should allow middlewares to pass new references', function (done) {
+      var one = { test: "test1" },
+        two = { test: "test2" };
+
+      ware()
+        .use(function (a, b, next) {
+          next(null, a, { test : "test3" });
+        })
+        .use(function (a, b, next) {
+          a.test = "test4";
+          next();
+        })
+        .run(one, two, function (err, a, b) {
+          assert.strictEqual(a, one);
+          assert.notStrictEqual(b, two);
+          assert.equal(b.test, "test3");
+          assert.equal(a.test, "test4");
+          done();
+        });
+    });
+
     it('should not require a callback', function (done) {
       ware()
         .use(function (obj, next) { assert(obj); next(); })
