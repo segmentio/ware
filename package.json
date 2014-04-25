@@ -1,7 +1,7 @@
 {
   "name": "ware",
   "repository": "git://github.com/segmentio/ware.git",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Easily create your own middleware layer.",
   "keywords": [

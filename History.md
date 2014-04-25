@@ -1,9 +1,14 @@
 
-0.2.2 / March 18, 2013
-==================
+0.3.0 - April 24, 2014
+----------------------
+* let `use` accept arrays
+* let `use` accept `Ware` instances
+* allow passing `fns` to the constructor
 
- * moving to settimeout to fix dom validation issues
- * add travis
+0.2.2 - March 18, 2013
+----------------------
+* moving to settimeout to fix dom validation issues
+* add travis
 
 0.2.1 - December 12, 2013
 -------------------------

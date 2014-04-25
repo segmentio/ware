@@ -15,6 +15,22 @@ describe('ware', function () {
       var w = ware().use(noop);
       assert(1 == w.fns.length);
     });
+
+    it('should accept an array of middleware', function () {
+      var w = ware().use([noop, noop]);
+      assert(2 == w.fns.length);
+    });
+
+    it('should accept a Ware instance', function () {
+      var o = ware().use(noop).use(noop);
+      var w = ware().use(o);
+      assert(2 == w.fns.length);
+    });
+
+    it('should accept middleware on construct', function () {
+      var w = ware(noop);
+      assert(1 == w.fns.length);
+    });
   });
 
   describe('#run', function () {
