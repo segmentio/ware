@@ -45,7 +45,7 @@ middleware.run(1, 2, 3); // 1, 2, 3
 var ware = require('ware');
 var middleware = ware()
   .use(function (obj, next) {
-    if ('42' != obj.value) return next(new Error());
+    if ('42' != obj.life) return next(new Error());
     next();
   })
   .use(function (obj, next) {
