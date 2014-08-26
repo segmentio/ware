@@ -27,6 +27,13 @@ describe('ware', function () {
       assert(2 == w.fns.length);
     });
 
+    it('should accept an array of Ware instances', function() {
+      var a = ware().use(noop).use(noop);
+      var b = ware().use(noop).use(noop);
+      var w = ware([a, b]);
+      assert(4 == w.fns.length);
+    })
+
     it('should accept middleware on construct', function () {
       var w = ware(noop);
       assert(1 == w.fns.length);
