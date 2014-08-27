@@ -5,6 +5,25 @@
 
   [![Build Status](https://travis-ci.org/segmentio/ware.png?branch=master)](https://travis-ci.org/segmentio/ware)
 
+## Installation
+
+Node:
+
+```bash
+$ npm install ware
+```
+
+Component:
+
+```bash
+$ component install segmentio/ware
+```
+
+Duo:
+
+```js
+var ware = require('segmentio/ware');
+```
 
 ## Example
 
@@ -39,24 +58,22 @@ var middleware = ware()
 middleware.run(1, 2, 3); // 1, 2, 3
 ```
 
-  Handles errors for you, just use a handler with an arity of `+1`:
+  Supports generators (on the server):
 
 ```js
 var ware = require('ware');
 var middleware = ware()
-  .use(function (obj, next) {
-    if ('42' != obj.life) return next(new Error());
-    next();
+  .use(function (obj) {
+    obj.url = 'http://google.com';
   })
-  .use(function (obj, next) {
-    console.log('yes!');
+  .use(function *(obj) {
+    obj.src = yield http.get(obj.url);
   })
-  .use(function (err, obj, next) {
-    console.log('no!');
-  });
 
-middleware.run({ life: '41' }); // "no!"
-middleware.run({ life: '42' }); // "yes!"
+middleware.run({ url: 'http://facebook.com' }, function(err, obj) {
+  if (err) throw err;
+  obj.src // "obj.url" source
+});
 ```
 
 ## API
@@ -67,7 +84,8 @@ middleware.run({ life: '42' }); // "yes!"
 
 #### .use(fn)
 
-  Push a middleware `fn` onto the list. If the middleware has an arity of one more than the input to `run` it's an error middleware.
+  Push a middleware `fn` onto the list. `fn` can be a synchronous, asynchronous, or generator function.
+  `fn` can also be an array of functions or an instance of `Ware`.
 
 #### .run(input..., [callback])
 
