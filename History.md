@@ -1,4 +1,10 @@
 
+1.0.0 - August 26, 2014
+-----------------------
+* add support for sync middleware
+* add support for generators
+* remove support for error middleware with arity
+
 0.3.0 - April 24, 2014
 ----------------------
 * let `use` accept arrays

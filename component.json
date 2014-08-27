@@ -1,7 +1,7 @@
 {
   "name": "ware",
   "repo": "segmentio/ware",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Easily create your own middleware layer.",
   "keywords": [
@@ -11,6 +11,6 @@
     "layer",
     "middleware"
   ],
-  "scripts": ["lib/index.js"],
-  "main": "lib/index.js"
+  "main": "lib/index.js",
+  "scripts": ["lib/index.js"]
 }

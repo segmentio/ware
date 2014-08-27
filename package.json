@@ -1,7 +1,7 @@
 {
   "name": "ware",
   "repository": "git://github.com/segmentio/ware.git",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Easily create your own middleware layer.",
   "keywords": [
@@ -11,13 +11,13 @@
     "layer",
     "middleware"
   ],
-  "devDependencies": {
-    "co-mocha": "^1.0.0",
-    "gnode": "0.0.8",
-    "mocha": "*"
-  },
   "main": "lib/index.js",
   "dependencies": {
     "co": "^3.1.0"
+  },
+  "devDependencies": {
+    "co-mocha": "^1.0.0",
+    "gnode": "0.0.8",
+    "mocha": "^1.21.4"
   }
 }
