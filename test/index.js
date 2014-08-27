@@ -34,93 +34,235 @@ describe('ware', function () {
   });
 
   describe('#run', function () {
-    it('should receive an error', function (done) {
-      var error = new Error();
-      ware()
-        .use(function (next) { next(error); })
-        .run(function (err) {
-          assert(err == error);
-          done();
-        });
+    describe('async', function() {
+      it('should receive an error', function (done) {
+        var error = new Error();
+        ware()
+          .use(function (next) { next(error); })
+          .run(function (err) {
+            assert(err == error);
+            done();
+          });
+      });
+
+      it('should receive initial arguments', function (done) {
+        ware()
+          .use(function (req, res, next) { next(); })
+          .run('req', 'res', function (err, req, res) {
+            assert(!err);
+            assert('req' == req);
+            assert('res' == res);
+            done();
+          });
+      });
+
+      it('should take any number of arguments', function (done) {
+        ware()
+          .use(function (a, b, c, next) { next(); })
+          .run('a', 'b', 'c', function (err, a, b, c) {
+            assert(!err);
+            assert('a' == a);
+            assert('b' == b);
+            assert('c' == c);
+            done();
+          });
+      });
+
+      it('should let middleware manipulate the same input objects', function (done) {
+        ware()
+          .use(function (obj, next) {
+            obj.value = obj.value * 2;
+            next();
+          })
+          .use(function (obj, next) {
+            obj.value = obj.value.toString();
+            next();
+          })
+          .run({ value: 21 }, function (err, obj) {
+            assert('42' == obj.value);
+            done();
+          });
+      });
+
+      it('should jump to done on error', function (done) {
+        var errors = 0;
+        ware()
+          .use(function (next) { next(new Error()); })
+          .use(function (next) { errors++; next(err); })
+          .use(function (next) { errors++; next(err); })
+          .run(function (err) {
+            assert(err);
+            assert(0 == errors);
+            done();
+          });
+      });
+
+      it('should not require a callback', function (done) {
+        ware()
+          .use(function (obj, next) { assert(obj); next(); })
+          .use(function (obj, next) { done(); })
+          .run('obj');
+      });
     });
 
-    it('should receive initial arguments', function (done) {
-      ware()
-        .use(function (req, res, next) { next(); })
-        .run('req', 'res', function (err, req, res) {
-          assert(!err);
-          assert('req' == req);
-          assert('res' == res);
-          done();
-        });
-    });
+    describe('sync', function() {
+      it('should receive an error', function (done) {
+        var error = new Error();
+        ware()
+          .use(function () { return error; })
+          .run(function (err) {
+            assert(err == error);
+            done();
+          });
+      });
 
-    it('should take any number of arguments', function (done) {
-      ware()
-        .use(function (a, b, c, next) { next(); })
-        .run('a', 'b', 'c', function (err, a, b, c) {
-          assert(!err);
-          assert('a' == a);
-          assert('b' == b);
-          assert('c' == c);
-          done();
-        });
-    });
+      it('should receive initial arguments', function (done) {
+        ware()
+          .use(function (req, res) { return; })
+          .run('req', 'res', function (err, req, res) {
+            assert(!err);
+            assert('req' == req);
+            assert('res' == res);
+            done();
+          });
+      });
 
-    it('should let middleware manipulate the same input objects', function (done) {
-      ware()
-        .use(function (obj, next) {
-          obj.value = obj.value * 2;
-          next();
-        })
-        .use(function (obj, next) {
-          obj.value = obj.value.toString();
-          next();
-        })
-        .run({ value: 21 }, function (err, obj) {
-          assert('42' == obj.value);
-          done();
-        });
-    });
+      it('should take any number of arguments', function (done) {
+        ware()
+          .use(function (a, b, c) { })
+          .run('a', 'b', 'c', function (err, a, b, c) {
+            assert(!err);
+            assert('a' == a);
+            assert('b' == b);
+            assert('c' == c);
+            done();
+          });
+      });
 
-    it('should skip non-error handlers on error', function (done) {
-      ware()
-        .use(function (next) { next(new Error()); })
-        .use(function (next) { assert(false); })
-        .run(function (err) {
-          assert(err);
-          done();
-        });
-    });
+      it('should let middleware manipulate the same input objects', function (done) {
+        ware()
+          .use(function (obj) {
+            obj.value = obj.value * 2;
+          })
+          .use(function (obj) {
+            obj.value = obj.value.toString();
+          })
+          .run({ value: 21 }, function (err, obj) {
+            assert(!err);
+            assert('42' == obj.value);
+            done();
+          });
+      });
 
-    it('should skip error handlers on no error', function (done) {
-      ware()
-        .use(function (next) { next(); })
-        .use(function (err, next) { assert(false); })
-        .run(function (err) {
-          assert(!err);
-          done();
-        });
-    });
 
-    it('should call error middleware on error', function (done) {
-      var errors = 0;
-      ware()
-        .use(function (next) { next(new Error()); })
-        .use(function (err, next) { errors++; next(err); })
-        .use(function (err, next) { errors++; next(err); })
-        .run(function (err) {
-          assert(err);
-          assert(2 == errors);
-          done();
-        });
-    });
+      it('should call error middleware on error', function (done) {
+        var errors = 0;
+        ware()
+          .use(function () { return new Error(); })
+          .use(function (next) { errors++; next(err); })
+          .use(function (next) { errors++; next(err); })
+          .run(function (err) {
+            assert(err);
+            assert(0 == errors);
+            done();
+          });
+      });
 
-    it('should not require a callback', function (done) {
-      ware()
-        .use(function (obj, next) { assert(obj); next(); })
-        .use(function (obj, next) { done(); })
-        .run('obj');
+      it('should not require a callback', function (done) {
+        ware()
+          .use(function (obj) { assert(obj); })
+          .use(function (obj) { done(); })
+          .run('obj');
+      });
+    })
+
+    describe('generator', function() {
+      it('should receive an error', function (done) {
+        var error = new Error();
+        ware()
+          .use(function *() { throw error; })
+          .run(function (err) {
+            assert(err == error);
+            done();
+          });
+      });
+
+      it('should receive initial arguments', function (done) {
+        ware()
+          .use(function *(req, res) { })
+          .run('req', 'res', function (err, req, res) {
+            assert(!err);
+            assert('req' == req);
+            assert('res' == res);
+            done();
+          });
+      });
+
+      it('should take any number of arguments', function (done) {
+        ware()
+          .use(function *(a, b, c) { })
+          .run('a', 'b', 'c', function (err, a, b, c) {
+            assert(!err);
+            assert('a' == a);
+            assert('b' == b);
+            assert('c' == c);
+            done();
+          });
+      });
+
+      it('should let middleware manipulate the same input objects', function (done) {
+        ware()
+          .use(function *(obj) {
+            obj.value = obj.value * 2;
+          })
+          .use(function *(obj) {
+            obj.value = obj.value.toString();
+          })
+          .run({ value: 21 }, function (err, obj) {
+            assert('42' == obj.value);
+            done();
+          });
+      });
+
+      it('should wait for the gen to finish', function(done) {
+        ware()
+          .use(function *(a, b, c) {
+            yield wait(100);
+          })
+          .run('a', 'b', 'c', function (err, a, b, c) {
+            assert(!err);
+            assert('a' == a);
+            assert('b' == b);
+            assert('c' == c);
+            done();
+          });
+      })
+
+      it('should jump to done on error', function (done) {
+        var errors = 0;
+        ware()
+          .use(function *() { throw new Error(); })
+          .use(function *() { errors++; })
+          .use(function *() { errors++; })
+          .run(function (err) {
+            assert(err);
+            assert(0 == errors);
+            done();
+          });
+      });
+
+      it('should not require a callback', function (done) {
+        ware()
+          .use(function *(obj) { assert(obj); })
+          .use(function *(obj) { done(); })
+          .run('obj');
+      });
     });
   });
 });
+
+function wait(ms) {
+  return function(fn) {
+    setTimeout(fn, ms);
+  }
+}
