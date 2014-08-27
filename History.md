@@ -1,4 +1,8 @@
 
+1.0.1 - August 26, 2014
+-----------------------
+* add support for passing an array of ware instances
+
 1.0.0 - August 26, 2014
 -----------------------
 * add support for sync middleware
