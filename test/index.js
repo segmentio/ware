@@ -16,6 +16,11 @@ describe('ware', function () {
       assert(1 == w.fns.length);
     });
 
+    it('should ignore undefined or false values', function() {
+      var w = ware().use(undefined).use(false);
+      assert(0 == w.fns.length);
+    })
+
     it('should accept an array of middleware', function () {
       var w = ware().use([noop, noop]);
       assert(2 == w.fns.length);
