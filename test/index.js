@@ -123,6 +123,16 @@ describe('ware', function () {
           });
       });
 
+      it('should catch an error', function (done) {
+        var error = new Error();
+        ware()
+          .use(function () { throw error; })
+          .run(function (err) {
+            assert(err === error);
+            done();
+          });
+      });
+
       it('should receive initial arguments', function (done) {
         ware()
           .use(function (req, res) { return; })
