@@ -5,6 +5,7 @@ node_modules: package.json
 
 test: node_modules
 	@./node_modules/.bin/mocha \
+		--harmony-generators \
 		--require co-mocha \
 		--require gnode \
 		--reporter spec

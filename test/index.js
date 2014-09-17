@@ -123,6 +123,16 @@ describe('ware', function () {
           });
       });
 
+      it('should catch an error', function (done) {
+        var error = new Error();
+        ware()
+          .use(function () { throw error; })
+          .run(function (err) {
+            assert(err === error);
+            done();
+          });
+      });
+
       it('should receive initial arguments', function (done) {
         ware()
           .use(function (req, res) { return; })
@@ -162,7 +172,7 @@ describe('ware', function () {
       });
 
 
-      it('should call error middleware on error', function (done) {
+      it('should skip middleware on error', function (done) {
         var errors = 0;
         ware()
           .use(function () { return new Error(); })
@@ -180,6 +190,33 @@ describe('ware', function () {
           .use(function (obj) { assert(obj); })
           .use(function (obj) { done(); })
           .run('obj');
+      });
+
+      it('should support promises', function (done) {
+        ware()
+          .use(function () {
+            return {
+              then: function (resolve) { resolve(10); }
+            };
+          })
+          .run(done);
+      });
+
+      it('should skip middleware on promise error', function (done) {
+        var errors = 0;
+        ware()
+          .use(function () {
+            return {
+              then: function (resolve, reject) { reject(new Error()); }
+            };
+          })
+          .use(function (next) { errors++; next(err); })
+          .use(function (next) { errors++; next(err); })
+          .run(function (err) {
+            assert(err);
+            assert(0 == errors);
+            done();
+          });
       });
     })
 
