@@ -181,6 +181,33 @@ describe('ware', function () {
           .use(function (obj) { done(); })
           .run('obj');
       });
+
+      it('should support promises', function (done) {
+        ware()
+          .use(function () {
+            return {
+              then: function (resolve) { resolve(10); }
+            };
+          })
+          .run(done);
+      });
+
+      it('should call error middleware on promise error', function (done) {
+        var errors = 0;
+        ware()
+          .use(function () {
+            return {
+              then: function (resolve, reject) { reject(new Error()); }
+            };
+          })
+          .use(function (next) { errors++; next(err); })
+          .use(function (next) { errors++; next(err); })
+          .run(function (err) {
+            assert(err);
+            assert(0 == errors);
+            done();
+          });
+      });
     })
 
     describe('generator', function() {
