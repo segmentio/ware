@@ -2,6 +2,9 @@
   "name": "ware",
   "repository": "git://github.com/segmentio/ware.git",
   "version": "1.0.1",
+  "scripts": {
+    "test": "make test"
+  },
   "license": "MIT",
   "description": "Easily create your own middleware layer.",
   "keywords": [
@@ -13,7 +16,8 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "co": "^3.1.0"
+    "co": "^3.1.0",
+    "wrap-fn": "^0.1.0"
   },
   "devDependencies": {
     "co-mocha": "^1.0.0",
