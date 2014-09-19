@@ -1,4 +1,8 @@
 
+1.1.0 - September 19, 2014
+--------------------------
+* refactor to use `wrap-fn`
+
 1.0.1 - August 26, 2014
 -----------------------
 * add support for passing an array of ware instances
