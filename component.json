@@ -12,5 +12,8 @@
     "middleware"
   ],
   "main": "lib/index.js",
+  "dependencies": {
+    "matthewmueller/wrap-fn": "^0.1.0"
+  },
   "scripts": ["lib/index.js"]
 }
