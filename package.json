@@ -16,10 +16,10 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "co": "^3.1.0",
     "wrap-fn": "^0.1.0"
   },
   "devDependencies": {
+    "co": "^3.1.0",
     "co-mocha": "^1.0.0",
     "gnode": "0.0.8",
     "mocha": "^1.21.4"
