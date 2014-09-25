@@ -1,4 +1,9 @@
 
+1.2.0 - September 25, 2014
+--------------------------
+* move `co` to `devDependencies`
+* add client-side support
+
 1.1.0 - September 19, 2014
 --------------------------
 * refactor to use `wrap-fn`
