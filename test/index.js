@@ -133,6 +133,15 @@ describe('ware', function () {
           });
       });
 
+      it('should throw an error without callback', function () {
+        var error = new Error();
+        assert.throws(function () {
+          ware()
+            .use(function () { throw error; })
+            .run();
+        });
+      });
+
       it('should receive initial arguments', function (done) {
         ware()
           .use(function (req, res) { return; })
