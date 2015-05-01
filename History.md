@@ -1,4 +1,9 @@
 
+1.3.0 - April 30, 2015
+----------------------
+* throw on errors without a `done` callback
+* add `files` to `package.json`
+
 1.2.0 - September 25, 2014
 --------------------------
 * move `co` to `devDependencies`
