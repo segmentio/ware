@@ -84,7 +84,9 @@ middleware.run({ url: 'http://facebook.com' }, function(err, obj) {
 
 #### .use(fn)
 
-  Push a middleware `fn` onto the list. `fn` can be a synchronous, asynchronous, or generator function.
+  Push a middleware `fn` onto the list. `fn` can be a synchronous, asynchronous, or generator function. (it
+  can also return a `Promise`)
+  
   `fn` can also be an array of functions or an instance of `Ware`.
 
 #### .run(input..., [callback])
