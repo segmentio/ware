@@ -1,11 +1,13 @@
 default: test
 
+HARMONY_OPTS = `node --v8-options | grep --only-matching -- '--harmony_generators'`
+
 node_modules: package.json
 	@npm install
 
 test: node_modules
 	@./node_modules/.bin/mocha \
-		--harmony-generators \
+		$(HARMONY_OPTS) \
 		--require co-mocha \
 		--require gnode \
 		--reporter spec
