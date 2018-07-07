@@ -4,6 +4,11 @@ notifications:
   email:
     - engineering@segment.io
 node_js:
-  - "0.11"
-  - "0.10"
   - "0.8"
+  - "0.10"
+  - "0.11"
+  - "4"
+  - "6"
+  - "8"
+  - "10"
+  - "node"
