@@ -13,7 +13,7 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "matthewmueller/wrap-fn": "^0.1.0"
+    "matthewmueller/wrapped": "^1.x"
   },
   "scripts": ["lib/index.js"]
 }

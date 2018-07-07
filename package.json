@@ -19,7 +19,7 @@
     "lib"
   ],
   "dependencies": {
-    "wrap-fn": "^0.1.0"
+    "wrapped": "^1.0.1"
   },
   "devDependencies": {
     "co": "^3.1.0",
